@@ -42,19 +42,7 @@ jobs:
       - name: Run Checkstyle
         run: ./gradlew checkstyleMain checkstyleTest
 
-      # Run tests with Gradle and generate coverage report
+      # Run tests with coverage
       - name: Run tests with coverage
-        run: ./gradlew test jacocoTestReport
+        run: ./gradlew test jacoco
 
-      # Upload code coverage to CodeClimate
-      - name: Upload coverage to CodeClimate
-        uses: codeclimate/test-reporter-action@v2
-        with:
-          coverageCommand: "./gradlew jacocoTestReport"
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-
-      # Run application (optional)
-      - name: Run application
-        run: |
-          java -cp build/libs/hexlet.code-1.0-SNAPSHOT.jar hexlet.code.App
