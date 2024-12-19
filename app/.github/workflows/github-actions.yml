@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'
-          distribution: 'temurin'  # AdoptOpenJDK (Adoptium) version
+          distribution: 'temurin'
 
       # Cache Gradle dependencies
       - name: Cache Gradle dependencies
@@ -38,15 +38,23 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew clean build
 
-      # Checkstyle validation (if needed)
+      # Run Checkstyle
       - name: Run Checkstyle
         run: ./gradlew checkstyleMain checkstyleTest
 
-      # Run the generated Java application (if needed)
+      # Run tests with Gradle and generate coverage report
+      - name: Run tests with coverage
+        run: ./gradlew test jacocoTestReport
+
+      # Upload code coverage to CodeClimate
+      - name: Upload coverage to CodeClimate
+        uses: codeclimate/test-reporter-action@v2
+        with:
+          coverageCommand: "./gradlew jacocoTestReport"
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+
+      # Run application (optional)
       - name: Run application
         run: |
           java -cp build/libs/hexlet.code-1.0-SNAPSHOT.jar hexlet.code.App
-
-      # Run tests with Gradle
-      - name: Run tests
-        run: ./gradlew test
