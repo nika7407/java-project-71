@@ -34,9 +34,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      # Build the project with Gradle
-      - name: Build with Gradle
-        run: ./gradlew clean build
+      # Use Makefile to build the project
+      - name: Build with Make
+        run: make build
 
       # Run Checkstyle
       - name: Run Checkstyle
