@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("application")
     id("checkstyle")
+    id("jacoco")
 }
 
 group = "hexlet.code"
@@ -14,6 +15,14 @@ checkstyle {
     toolVersion = "10.12.4"
     configFile = file("config/checkstyle/checkstyle.xml")
 }
+
+
+jacoco {
+    toolVersion = "0.8.12"
+    reportsDirectory = layout.buildDirectory.dir("customJacocoReportDir")
+}
+
+
 
 application {
     mainClass = "hexlet.code.App"
