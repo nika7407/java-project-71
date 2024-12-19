@@ -6,9 +6,10 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import java.util.TreeSet;
 import java.util.Set;
@@ -48,6 +49,7 @@ public class App implements Runnable{
                
                System.out.println("Parsed data: " + data1);
                System.out.println("Parsed data1: " + data2);
+
                System.out.println(generateDiff(data1,data2));
 
            } catch (IOException e) {
@@ -61,11 +63,15 @@ public class App implements Runnable{
         System.exit(exitCode);
     }
 
-    public static Map<String, Object> getData(String content) throws IOException {
+    public static Map<String, Object> getData(String filePath) throws IOException {
+        Path path = Paths.get(filePath);
+        String fixedPath = path.toAbsolutePath().toString();
+
+        // converts relative path into absolute
+        // does nothing if its already is
 
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(new File(content), Map.class);
-
+        return objectMapper.readValue(new File(fixedPath), Map.class);
     }
 
     public static String generateDiff(Map<String, Object> input1, Map<String, Object> input2){
@@ -84,7 +90,7 @@ public class App implements Runnable{
             } else if (value2 == null){
                 diff.append(" - "+key+": "+value1+"\n");
             } else if (value1.equals(value2)){
-                diff.append("  "+key+": "+value1+"\n");
+                diff.append("   "+key+": "+value1+"\n");
             } else {
                diff.append(" - "+key+": "+value1+"\n");
                diff.append(" + "+key+": "+value2+"\n");
