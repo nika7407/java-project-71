@@ -2,11 +2,9 @@ import hexlet.code.App;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import picocli.CommandLine;
-
 import java.io.IOException;
 import java.util.Map;
 import java.util.HashMap;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AppTest {
@@ -20,8 +18,8 @@ public class AppTest {
    @BeforeEach
    public void before(){
        // Initialize the variables in the @BeforeEach method
-       path = "C:\\Nik\\GIT\\hexletSecondProject\\app\\src\\test\\resources\\json1Test.json";
-       path1 = "C:\\Nik\\GIT\\hexletSecondProject\\app\\src\\test\\resources\\json2Test.json";
+       path = "C:\\Nik\\GIT\\java-project-71\\app\\src\\test\\resources\\json1Test.json";
+       path1 = "C:\\Nik\\GIT\\java-project-71\\app\\src\\test\\resources\\json2Test.json";
        fixedMap = new HashMap<>();
        createdMaps = null;
        fixedMap1 = new HashMap<>();
@@ -38,7 +36,7 @@ public class AppTest {
 
     @Test
       public void testHelp(){
-          String args = "-h";
+          String[] args = {"-h", "file1.json", "file2.json"};
         int exitCode = new CommandLine(new App()).execute(args);
         assertEquals(0,exitCode);
     }
