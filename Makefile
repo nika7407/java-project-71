@@ -1,22 +1,36 @@
-# Указываем, что build и run-dist являются командами
-.PHONY: run-dist
-.PHONY: build
-.PHONY: test
-.PHONY: checkstyle
+.DEFAULT_GOAL := build-run
 
-# Команда для запуска приложения
-run-dist:
-	./build/install/app/bin/app
+setup:
+	gradle wrapper --gradle-version 8.3
 
-# Команда для сборки проекта
+clean:
+	./app/gradlew -p app clean
+
 build:
-	./gradlew clean build
+	./app/gradlew -p app clean build
 
-# Команда для тестов
+install:
+	./app/gradlew -p app clean install
+
+run-dist:
+	@./app/build/install/app/bin/app -h
+
+run:
+	./app/gradlew -p app run
+
 test:
-	./gradlew test
+	./app/gradlew -p app test
 
-# Команда для проверки стиля кода
-checkstyle:
-	./gradlew checkstyleMain checkstyleTest
+report:
+	./app/gradlew -p app jacocoTestReport
+
+lint:
+	./app/gradlew -p app checkstyleMain
+
+check-deps:
+	./app/gradlew -p app dependencyUpdates -Drevision=release
+
+build-run: build run
+
+.PHONY: build
 
