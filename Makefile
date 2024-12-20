@@ -1,38 +1,30 @@
-# Укажите путь к Gradle wrapper, если нужно
-GRADLE_WRAPPER=./gradlew
 
-# Укажите основную задачу для сборки и тестирования
-.DEFAULT_GOAL := build
+GRADLE_WRAPPER := ./app/gradlew
+PROJECT_DIR := app
+setup:
+	@./app/gradlew wrapper --gradle-version 8.3
 
-# Задача очистки
 clean:
-	$(GRADLE_WRAPPER) clean
+	$(GRADLE_WRAPPER) -p $(PROJECT_DIR) clean
 
-# Задача для сборки проекта
 build:
-	$(GRADLE_WRAPPER) build
+	$(GRADLE_WRAPPER) -p $(PROJECT_DIR) build
 
-# Задача для тестирования
+run:
+	$(GRADLE_WRAPPER) -p $(PROJECT_DIR) run
+
 test:
-	$(GRADLE_WRAPPER) test
+	$(GRADLE_WRAPPER) -p $(PROJECT_DIR) test
 
-# Задача для линтинга кода (если используется Checkstyle)
 lint:
-	$(GRADLE_WRAPPER) checkstyleMain
+	$(GRADLE_WRAPPER) -p $(PROJECT_DIR) checkstyleMain
 
-# Задача для генерации отчета по покрытию тестами (с использованием JaCoCo)
-coverage:
-	$(GRADLE_WRAPPER) jacocoTestReport
+report:
+	$(GRADLE_WRAPPER) -p $(PROJECT_DIR) jacocoTestReport
 
-# Задача для сборки и тестирования
-build-test: build test
+install:
+	$(GRADLE_WRAPPER) -p $(PROJECT_DIR) install
 
-# Задача для сборки, тестирования и линтинга
-build-test-lint: build test lint
+build-run: build run
 
-# Задача для всего — сборка, тестирование, линтинг и отчет по покрытиям
-full-build: build test lint coverage
-
-
-
-
+.PHONY: build
