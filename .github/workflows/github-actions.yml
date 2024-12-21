@@ -16,6 +16,9 @@ jobs:
           java-version: 17
           distribution: 'temurin'  # You might want to use 'adoptopenjdk' as the distribution
 
+      - name: Make gradlew executable
+        run: chmod +x ./app/gradlew
+
       - name: Build with Gradle
         run: make build
 
