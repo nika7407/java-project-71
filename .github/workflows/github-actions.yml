@@ -1,20 +1,24 @@
 name: build & test
-on: push
+on:
+  push:
+    branches:
+      - main
+
 jobs:
- build:
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v4
-    - name: Set up jdk 17
-      uses: actions/setup-java@v2
-      with:
-        java-version: 17
-        distribution: 'adopt'
-    - name: build with gradle
-    - run: make build
-    - name: Run tests and generate code coverage report
-    - run: make report
-    - name: Upload coverage to CodeClimate
-    - uses: codecov/codecov-action@v3
-      with:
-      file: ./build/reports/jacoco/test/jacocoTestReport.xml
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
+          distribution: 'adoptopenjdk'  # You might want to use 'adoptopenjdk' as the distribution
+
+      - name: Build with Gradle
+        run: make build
+
+      - name: Run tests and generate code coverage report
+        run: make report
+
