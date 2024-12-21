@@ -14,7 +14,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: 17
-          distribution: 'adoptopenjdk'  # You might want to use 'adoptopenjdk' as the distribution
+          distribution: 'temurin'  # You might want to use 'adoptopenjdk' as the distribution
 
       - name: Build with Gradle
         run: make build
