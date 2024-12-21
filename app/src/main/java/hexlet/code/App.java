@@ -22,7 +22,9 @@ public class App implements Runnable {
     @Option(names = {"-V", "--version"}, description = "Print version information and exit.", usageHelp = true)
     boolean version;
 
-    @Option(names = {"-f", "--format"}, description = "Output format (default: stylish)", defaultValue = "stylish", paramLabel = "format")
+    @Option(names = {"-f", "--format"},
+            description = "Output format (default: stylish)",
+            defaultValue = "stylish", paramLabel = "format")
     String format;
 
     @Parameters(paramLabel = "filepath1", description = "Path to the first file")
