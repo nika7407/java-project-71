@@ -18,8 +18,9 @@ public class AppTest {
    @BeforeEach
    public void before(){
        // Initialize the variables in the @BeforeEach method
-       path = "C:\\Nik\\GIT\\java-project-71\\app\\src\\test\\resources\\json1Test.json";
-       path1 = "C:\\Nik\\GIT\\java-project-71\\app\\src\\test\\resources\\json2Test.json";
+       path = "src/test/resources/json1Test.json";
+       path1 = "src/test/resources/json2Test.json";
+
        fixedMap = new HashMap<>();
        createdMaps = null;
        fixedMap1 = new HashMap<>();
