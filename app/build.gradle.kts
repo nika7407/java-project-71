@@ -22,6 +22,14 @@ jacoco {
     reportsDirectory = layout.buildDirectory.dir("customJacocoReportDir")
 }
 
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // Ensure tests are run before generating the report
+    reports {  // Enable the XML report (needed for CodeClimate)
+        xml.required.set(true)
+        // Enable HTML report (optional, for local view)
+        html.required.set(true)
+    }
+}
 
 
 application {
@@ -43,4 +51,5 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    finalizedBy(tasks.jacocoTestReport)
 }
