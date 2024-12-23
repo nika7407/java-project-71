@@ -43,12 +43,4 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    finalizedBy(tasks.jacocoTestReport)
-}
-
-tasks.jacocoTestReport {
-    reports {
-        xml.required.set(true) // Enable XML format report
-        html.required.set(true) // Optional: Enable HTML format for local viewing
-    }
 }
