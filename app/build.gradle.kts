@@ -7,6 +7,8 @@ plugins {
     id("application")
     id("checkstyle")
     id("jacoco")
+    id ("com.adarshr.test-logger") version ("3.0.0")
+    id ("com.github.ben-manes.versions") version ("0.39.0")
 }
 
 
@@ -46,12 +48,16 @@ dependencies {
 
 }
 
-tasks.test {
+
+test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
 }
+
 jacocoTestReport {
     reports {
         xml.required = true
     }
 }
+
+
