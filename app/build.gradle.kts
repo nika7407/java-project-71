@@ -1,6 +1,3 @@
-import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.gradle.api.tasks.testing.logging.TestLogEvent
-
 
 plugins {
     id("java")
@@ -49,15 +46,16 @@ dependencies {
 }
 
 
-test {
+
+tasks.test {
     useJUnitPlatform()
-    finalizedBy jacocoTestReport
+    finalizedBy("jacocoTestReport")
 }
 
-jacocoTestReport {
+tasks.register<JacocoReport>("jacocoTestReport") {
+    dependsOn(tasks.test)
     reports {
-        xml.required = true
+        xml.required.set(true)
     }
 }
-
 
