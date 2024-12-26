@@ -54,7 +54,8 @@ tasks.test {
 
 tasks.named<JacocoReport>("jacocoTestReport") {
     reports {
-        xml.required.set(true) // Generate XML report
+        xml.required.set(true)
+    // Generate XML report
     }
 }
 
