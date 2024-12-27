@@ -1,9 +1,9 @@
 
 plugins {
+    jacoco
     id("java")
     id("application")
     id("checkstyle")
-    id("jacoco")
     id ("com.adarshr.test-logger") version ("3.0.0")
     id ("com.github.ben-manes.versions") version ("0.39.0")
 }
@@ -23,7 +23,6 @@ checkstyle {
 
 jacoco {
     toolVersion = "0.8.12"
-    reportsDirectory = layout.buildDirectory.dir("customJacocoReportDir")
 }
 
 
