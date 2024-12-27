@@ -21,7 +21,7 @@ jobs:
           gradle-version: 8.3
       # - run: ./app/gradlew checkstyleMain
       - run: make build
-      - run: make report
+      - run: make test
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v2.7.1
         env:
