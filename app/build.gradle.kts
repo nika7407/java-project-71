@@ -49,13 +49,13 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
-    finalizedBy("jacocoTestReport") // Ensures jacocoTestReport runs after tests
+    finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
 }
 
-tasks.named<JacocoReport>("jacocoTestReport") {
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
     reports {
         xml.required.set(true)
-    // Generate XML report
     }
 }
 
