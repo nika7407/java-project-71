@@ -12,8 +12,8 @@ public class FullGenerator {
             String fileType1 = path1.substring(path1.lastIndexOf(".") + 1);
             String fileType2 = path2.substring(path2.lastIndexOf(".") + 1);
 
-            if (!fileType1.equals(fileType2) || (!fileType1.equals("json") &&
-                    !fileType1.equals("yaml") && !fileType1.equals("yml"))) {
+            if (!fileType1.equals(fileType2) || (!fileType1.equals("json")
+                    && !fileType1.equals("yaml") && !fileType1.equals("yml"))) {
                 throw new DataFormatException("There's problem with file Types");
             }
 
