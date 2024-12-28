@@ -1,4 +1,6 @@
 import hexlet.code.App;
+import hexlet.code.Differ;
+import hexlet.code.Parser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import picocli.CommandLine;
@@ -54,7 +56,7 @@ public class AppTest {
     @Test
     public void testGetData() {
         try {
-            createdMaps = App.getData(path);
+            createdMaps = Parser.getDataJson(path);
         } catch (IOException e) {
             fail("IOException occurred while reading the file: " + e.getMessage());
         }
@@ -65,7 +67,7 @@ public class AppTest {
 
     @Test
     public void testGenerateDiff() {
-        String actual = App.generateDiff(fixedMap, fixedMap1);
+        String actual = Differ.generateDiff(fixedMap, fixedMap1);
         String expected = "{\n"
                + " - follow: false\n"
                + "   host: hexlet.io\n"
