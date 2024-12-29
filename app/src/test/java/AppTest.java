@@ -5,16 +5,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import picocli.CommandLine;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.HashMap;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AppTest {
 
-    private String path;
-    private String path1;
+    private String pathjson;
+    private String path1json;
+    private String pathyaml;
+    private String pathyaml1;
     private Map<String, Object> fixedMap;
     private Map<String, Object> createdMaps;
     private Map<String, Object> fixedMap1;
@@ -22,8 +24,11 @@ public class AppTest {
     @BeforeEach
     public void before() {
         // Initialize the variables in the @BeforeEach method
-        path = "src/test/resources/json1Test.json";
-        path1 = "src/test/resources/json2Test.json";
+        pathjson = "src/test/resources/json1Test.json";
+        path1json = "src/test/resources/json2Test.json";
+
+        pathyaml = "src/test/resources/json1Test.yaml";
+        pathyaml1 = "src/test/resources/json2Test.yaml";
 
         fixedMap = new HashMap<>();
         createdMaps = null;
@@ -54,9 +59,9 @@ public class AppTest {
     }
 
     @Test
-    public void testGetData() {
+    public void testGetDataJson() {
         try {
-            createdMaps = Parser.getDataJson(path);
+            createdMaps = Parser.getDataJson(pathjson);
         } catch (IOException e) {
             fail("IOException occurred while reading the file: " + e.getMessage());
         }
@@ -77,5 +82,24 @@ public class AppTest {
                + " + verbose: true\n"
                + "}";
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGetDataYaml() {
+        try {
+            createdMaps = Parser.getDataYaml(pathyaml);
+        } catch (IOException e) {
+            fail("IOException occurred while reading the file: " + e.getMessage());
+        }
+
+        assertNotNull(createdMaps, "The created map should not be null.");
+        assertEquals(fixedMap, createdMaps, "The maps should be equal.");
+    }
+
+    @Test
+    public void testPathFix(){
+        String relativePath = "src/main/resources/file.txt";
+        String absolutePath = Parser.pathFix(relativePath);
+        assertTrue(Paths.get(absolutePath).isAbsolute(), "path is not absolute.");
     }
 }
