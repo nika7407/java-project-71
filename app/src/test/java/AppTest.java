@@ -8,10 +8,13 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.zip.DataFormatException;
+import  hexlet.code.FullGenerator;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AppTest {
 
@@ -76,13 +79,13 @@ public class AppTest {
     public void testGenerateDiff() {
         String actual = Differ.generateDiff(fixedMap, fixedMap1);
         String expected = "{\n"
-               + " - follow: false\n"
-               + "   host: hexlet.io\n"
-               + " - proxy: 123.234.53.22\n"
-               + " - timeout: 50\n"
-               + " + timeout: 20\n"
-               + " + verbose: true\n"
-               + "}";
+                + " - follow: false\n"
+                + "   host: hexlet.io\n"
+                + " - proxy: 123.234.53.22\n"
+                + " - timeout: 50\n"
+                + " + timeout: 20\n"
+                + " + verbose: true\n"
+                + "}";
         assertEquals(expected, actual);
     }
 
@@ -104,4 +107,13 @@ public class AppTest {
         String absolutePath = Parser.pathFix(relativePath);
         assertTrue(Paths.get(absolutePath).isAbsolute(), "path is not absolute.");
     }
+
+    @Test
+    public void testMismatchedFileTypes() {
+        DataFormatException exception = assertThrows(DataFormatException.class, () -> {
+            FullGenerator.generate("path1.json", "path2.yaml");
+        });
+        assertEquals("There's problem with file Types", exception.getMessage(), "Mismatched file types should throw DataFormatException.");
+    }
 }
+
