@@ -8,8 +8,10 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.HashMap;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class AppTest {
 
@@ -97,7 +99,7 @@ public class AppTest {
     }
 
     @Test
-    public void testPathFix(){
+    public void testPathFix() {
         String relativePath = "src/main/resources/file.txt";
         String absolutePath = Parser.pathFix(relativePath);
         assertTrue(Paths.get(absolutePath).isAbsolute(), "path is not absolute.");
