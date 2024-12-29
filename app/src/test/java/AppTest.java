@@ -9,12 +9,8 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.zip.DataFormatException;
-import  hexlet.code.FullGenerator;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import hexlet.code.FullGenerator;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AppTest {
 
@@ -32,7 +28,6 @@ public class AppTest {
         // Initialize the variables in the @BeforeEach method
         pathjson = "src/test/resources/json1Test.json";
         path1json = "src/test/resources/json2Test.json";
-
         pathyaml = "src/test/resources/json1Test.yaml";
         pathyaml1 = "src/test/resources/json2Test.yaml";
 
@@ -48,15 +43,15 @@ public class AppTest {
         fixedMap1.put("timeout", 20);
         fixedMap1.put("verbose", true);
         fixedMap1.put("host", "hexlet.io");
-        generetarorResult = "{\n" +
-                " - follow: false\n" +
-                "   host: hexlet.io\n" +
-                " - proxy: 123.234.53.22\n" +
-                " - timeout: 50\n" +
-                " + timeout: 20\n" +
-                " + verbose: true\n" +
-                "}";
 
+        generetarorResult = "{\n"
+                + " - follow: false\n"
+                + "   host: hexlet.io\n"
+                + " - proxy: 123.234.53.22\n"
+                + " - timeout: 50\n"
+                + " + timeout: 20\n"
+                + " + verbose: true\n"
+                + "}";
     }
 
     @Test
@@ -115,7 +110,7 @@ public class AppTest {
     public void testPathFix() {
         String relativePath = "src/main/resources/file.txt";
         String absolutePath = Parser.pathFix(relativePath);
-        assertTrue(Paths.get(absolutePath).isAbsolute(), "path is not absolute.");
+        assertTrue(Paths.get(absolutePath).isAbsolute(), "Path is not absolute.");
     }
 
     @Test
@@ -123,7 +118,8 @@ public class AppTest {
         DataFormatException exception = assertThrows(DataFormatException.class, () -> {
             FullGenerator.generate("path1.json", "path2.yaml");
         });
-        assertEquals("There's problem with file Types", exception.getMessage(), "Mismatched file types should throw DataFormatException.");
+        assertEquals("There's problem with file Types", exception.getMessage(),
+                "Mismatched file types should throw DataFormatException.");
     }
 
     @Test
@@ -131,23 +127,22 @@ public class AppTest {
         DataFormatException exception = assertThrows(DataFormatException.class, () -> {
             FullGenerator.generate("path1.txt", "path2.txt");
         });
-        assertEquals("There's problem with file Types", exception.getMessage(), "Unsupported file types should throw DataFormatException.");
+        assertEquals("There's problem with file Types", exception.getMessage(),
+                "Unsupported file types should throw DataFormatException.");
     }
 
     @Test
-    public void testGeneratorJson(){
-
-       try {
-           String test = FullGenerator.generate(pathjson, path1json);
-           assertEquals(generetarorResult, test);
-       } catch (Exception e) {
-           throw new RuntimeException(e);
-       }
+    public void testGeneratorJson() {
+        try {
+            String test = FullGenerator.generate(pathjson, path1json);
+            assertEquals(generetarorResult, test);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
-    public void testGeneratorYaml(){
-
+    public void testGeneratorYaml() {
         try {
             String test = FullGenerator.generate(pathyaml, pathyaml1);
             assertEquals(generetarorResult, test);
@@ -155,9 +150,8 @@ public class AppTest {
             throw new RuntimeException(e);
         }
     }
-
-
 }
+
 
 
 
