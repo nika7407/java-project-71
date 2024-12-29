@@ -22,6 +22,7 @@ public class AppTest {
     private String path1json;
     private String pathyaml;
     private String pathyaml1;
+    private String generetarorResult;
     private Map<String, Object> fixedMap;
     private Map<String, Object> createdMaps;
     private Map<String, Object> fixedMap1;
@@ -47,6 +48,15 @@ public class AppTest {
         fixedMap1.put("timeout", 20);
         fixedMap1.put("verbose", true);
         fixedMap1.put("host", "hexlet.io");
+        generetarorResult = "{\n" +
+                " - follow: false\n" +
+                "   host: hexlet.io\n" +
+                " - proxy: 123.234.53.22\n" +
+                " - timeout: 50\n" +
+                " + timeout: 20\n" +
+                " + verbose: true\n" +
+                "}";
+
     }
 
     @Test
@@ -115,5 +125,39 @@ public class AppTest {
         });
         assertEquals("There's problem with file Types", exception.getMessage(), "Mismatched file types should throw DataFormatException.");
     }
+
+    @Test
+    public void testUnsupportedFileType() {
+        DataFormatException exception = assertThrows(DataFormatException.class, () -> {
+            FullGenerator.generate("path1.txt", "path2.txt");
+        });
+        assertEquals("There's problem with file Types", exception.getMessage(), "Unsupported file types should throw DataFormatException.");
+    }
+
+    @Test
+    public void testGeneratorJson(){
+
+       try {
+           String test = FullGenerator.generate(pathjson, path1json);
+           assertEquals(generetarorResult, test);
+       } catch (Exception e) {
+           throw new RuntimeException(e);
+       }
+    }
+
+    @Test
+    public void testGeneratorYaml(){
+
+        try {
+            String test = FullGenerator.generate(pathyaml, pathyaml1);
+            assertEquals(generetarorResult, test);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
+
+
 
