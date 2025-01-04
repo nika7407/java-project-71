@@ -7,7 +7,7 @@ import static hexlet.code.Differ.generateDiff;
 
 public class FullGenerator {
 
-    public static String generate(String path1, String path2,String format) throws Exception {
+    public static String generate(String path1, String path2, String format) throws Exception {
         try {
             String fileType1 = path1.substring(path1.lastIndexOf(".") + 1);
             String fileType2 = path2.substring(path2.lastIndexOf(".") + 1);
