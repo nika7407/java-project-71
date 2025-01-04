@@ -1,5 +1,4 @@
 import hexlet.code.App;
-import hexlet.code.Differ;
 import hexlet.code.Parser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,6 +9,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.zip.DataFormatException;
 import hexlet.code.FullGenerator;
+
+import static hexlet.code.Differ.stylish;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -86,7 +87,7 @@ public class AppTest {
 
     @Test
     public void testGenerateDiff() {
-        String actual = Differ.generateDiff(fixedMap, fixedMap1);
+        String actual = stylish(fixedMap, fixedMap1);
         String expected = "{\n"
                 + " - follow: false\n"
                 + "   host: hexlet.io\n"
@@ -120,7 +121,7 @@ public class AppTest {
     @Test
     public void testMismatchedFileTypes() {
         DataFormatException exception = assertThrows(DataFormatException.class, () -> {
-            FullGenerator.generate("path1.json", "path2.yaml");
+            FullGenerator.generate("path1.json", "path2.yaml", "stylish");
         });
         assertEquals("There's problem with file Types", exception.getMessage(),
                 "Mismatched file types should throw DataFormatException.");
@@ -129,7 +130,7 @@ public class AppTest {
     @Test
     public void testUnsupportedFileType() {
         DataFormatException exception = assertThrows(DataFormatException.class, () -> {
-            FullGenerator.generate("path1.txt", "path2.txt");
+            FullGenerator.generate("path1.txt", "path2.txt", "stylish");
         });
         assertEquals("There's problem with file Types", exception.getMessage(),
                 "Unsupported file types should throw DataFormatException.");
@@ -138,7 +139,7 @@ public class AppTest {
     @Test
     public void testGeneratorJson() {
         try {
-            String test = FullGenerator.generate(pathjson, path1json);
+            String test = FullGenerator.generate(pathjson, path1json, "stylish");
             assertEquals(generetarorResult, test);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -148,7 +149,7 @@ public class AppTest {
     @Test
     public void testGeneratorYaml() {
         try {
-            String test = FullGenerator.generate(pathyaml, pathyaml1);
+            String test = FullGenerator.generate(pathyaml, pathyaml1, "stylish");
             assertEquals(generetarorResult, test);
         } catch (Exception e) {
             throw new RuntimeException(e);

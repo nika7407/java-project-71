@@ -33,7 +33,7 @@ public class App implements Runnable {
             System.out.println("version 0.1");
         } else {
             try {
-                System.out.println(FullGenerator.generate(path1, path2));
+                System.out.println(FullGenerator.generate(path1, path2, format));
             } catch (Exception e) {
                 System.out.println("there was problem regarding filetypes");
             }
