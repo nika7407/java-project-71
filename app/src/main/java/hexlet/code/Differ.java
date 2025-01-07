@@ -1,6 +1,10 @@
 package hexlet.code;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.Objects;
+import java.util.List;
 
 public class Differ {
 
@@ -39,7 +43,7 @@ public class Differ {
         return diff.toString();
     }
 
-    public static String plain(Map<String, Object> input1, Map<String, Object> input2){
+    public static String plain(Map<String, Object> input1, Map<String, Object> input2) {
         Set<String> allKeys = new TreeSet<>();
         allKeys.addAll(input1.keySet());
         allKeys.addAll(input2.keySet());
@@ -53,8 +57,8 @@ public class Differ {
                 diff.append("Property '" + key + "' was added with value: ").append(typeCheck(value2)).append("\n");
             } else if (!input2.containsKey(key)) {
                 diff.append("Property '" + key + "' was removed").append("\n");
-            } else if (!Objects.deepEquals(value1, value2)){
-                    diff.append("Property '" + key + "' was updated. ")
+            } else if (!Objects.deepEquals(value1, value2)) {
+                diff.append("Property '" + key + "' was updated. ")
                         .append("From " + typeCheck(value1) + " to " + typeCheck(value2)).append("\n");
             }
         }
@@ -64,7 +68,7 @@ public class Differ {
     public static String typeCheck(Object input) {
         if (input instanceof String) {
             return "'" + input + "'";
-        } else if (input instanceof Map || input instanceof List){
+        } else if (input instanceof Map || input instanceof List) {
             return "[complex value]";
         } else if (input == null) {
             return "null";
@@ -72,5 +76,5 @@ public class Differ {
             return input.toString();
         }
     }
-
 }
+
