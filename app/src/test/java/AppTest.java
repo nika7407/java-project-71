@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.zip.DataFormatException;
 import hexlet.code.FullGenerator;
 
+import static hexlet.code.Differ.plain;
 import static hexlet.code.Differ.stylish;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -154,6 +155,17 @@ public class AppTest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Test
+    public void  testPlain(){
+    String expectedResult = "\nProperty 'follow' was removed\n"
+           + "Property 'proxy' was removed\n"
+           + "Property 'timeout' was updated. From 50 to 20\n"
+           + "Property 'verbose' was added with value: true\n";
+
+      String actualOutput = plain(fixedMap, fixedMap1);
+      assertEquals(expectedResult, actualOutput);
     }
 }
 
