@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Differ {
 
-    public static String generateDiff(Map<String, Object> input1, Map<String, Object> input2, String format) {
+    public static String generate(Map<String, Object> input1, Map<String, Object> input2, String format) {
         String answer = "";
         if (format.equals("stylish")) {
             answer = stylish(input1, input2);

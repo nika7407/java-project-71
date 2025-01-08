@@ -122,7 +122,7 @@ public class AppTest {
     @Test
     public void testMismatchedFileTypes() {
         DataFormatException exception = assertThrows(DataFormatException.class, () -> {
-            FullGenerator.generate("path1.json", "path2.yaml", "stylish");
+            FullGenerator.Generate("path1.json", "path2.yaml", "stylish");
         });
         assertEquals("There's problem with file Types", exception.getMessage(),
                 "Mismatched file types should throw DataFormatException.");
@@ -131,7 +131,7 @@ public class AppTest {
     @Test
     public void testUnsupportedFileType() {
         DataFormatException exception = assertThrows(DataFormatException.class, () -> {
-            FullGenerator.generate("path1.txt", "path2.txt", "stylish");
+            FullGenerator.Generate("path1.txt", "path2.txt", "stylish");
         });
         assertEquals("There's problem with file Types", exception.getMessage(),
                 "Unsupported file types should throw DataFormatException.");
@@ -140,7 +140,7 @@ public class AppTest {
     @Test
     public void testGeneratorJson() {
         try {
-            String test = FullGenerator.generate(pathjson, path1json, "stylish");
+            String test = FullGenerator.Generate(pathjson, path1json, "stylish");
             assertEquals(generetarorResult, test);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -150,7 +150,7 @@ public class AppTest {
     @Test
     public void testGeneratorYaml() {
         try {
-            String test = FullGenerator.generate(pathyaml, pathyaml1, "stylish");
+            String test = FullGenerator.Generate(pathyaml, pathyaml1, "stylish");
             assertEquals(generetarorResult, test);
         } catch (Exception e) {
             throw new RuntimeException(e);

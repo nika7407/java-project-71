@@ -3,11 +3,11 @@ package hexlet.code;
 import java.io.IOException;
 import java.util.Map;
 import java.util.zip.DataFormatException;
-import static hexlet.code.Differ.generateDiff;
+import static hexlet.code.Differ.generate;
 
 public class FullGenerator {
 
-    public static String generate(String path1, String path2, String format) throws Exception {
+    public static String Generate(String path1, String path2, String format) throws Exception {
         try {
             String fileType1 = path1.substring(path1.lastIndexOf(".") + 1);
             String fileType2 = path2.substring(path2.lastIndexOf(".") + 1);
@@ -28,7 +28,7 @@ public class FullGenerator {
                 data2 = Parser.getDataYaml(path2);
             }
 
-            return generateDiff(data1, data2, format);
+            return generate(data1, data2, format);
 
         } catch (IOException e) {
             System.out.println("There's issues with inputed paths");
