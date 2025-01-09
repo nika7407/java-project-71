@@ -9,13 +9,19 @@ public class Differ {
 
     public static String generate(Map<String, Object> input1, Map<String, Object> input2, String format) throws JsonProcessingException {
         String answer = "";
-        if (format.equals("stylish")) {
-            answer = stylish(input1, input2);
-        } else if (format.equals("plain")) {
-            answer = plain(input1, input2);
-        } else if (format.equals("json"));
-        {
-            answer = json(input1, input2);
+        switch (format) {
+            case "stylish":
+                answer = stylish(input1, input2);
+                break;
+            case "plain":
+                answer = plain(input1, input2);
+                break;
+            case "json":
+                answer = json(input1, input2);
+                break;
+            default:
+                System.out.println("Unknown format: " + format);
+                break;
         }
         return answer;
     }
