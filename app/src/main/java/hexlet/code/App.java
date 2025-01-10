@@ -14,8 +14,11 @@ public class App implements Runnable {
     @Option(names = {"-V", "--version"}, description = "Print version information and exit.", usageHelp = true)
     boolean version;
 
-    @Option(names = {"-f", "--format"}, description = "Output format", paramLabel = "format")
+    @Option(names = {"-f", "--format"},
+            description = "Output format",
+            paramLabel = "format", defaultValue = "stylish")
     String format;
+
 
     @Parameters(paramLabel = "filepath1", description = "Path to the first file")
     String path1;
@@ -33,7 +36,7 @@ public class App implements Runnable {
             try {
                 System.out.println(Differ.generate(path1, path2, format));
             } catch (Exception e) {
-                System.out.println("there was problem regarding filetypes");
+                System.out.println("there was problem regarding filetypes or paths");
             }
         }
     }

@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.zip.DataFormatException;
 
 public class Differ {
-    public static String generate(String path1, String path2, String format) throws JsonProcessingException {
+    public static String generate(String path1, String path2, String format) {
         try {
             String fileType1 = path1.substring(path1.lastIndexOf(".") + 1);
             String fileType2 = path2.substring(path2.lastIndexOf(".") + 1);
@@ -53,6 +53,6 @@ public class Differ {
     }
 
     public static String generate(String path1, String path2) throws IOException {
-        return Differ.generate(path1, path2, "stylish");
+        return generate(path1, path2, "stylish");
     }
 }
