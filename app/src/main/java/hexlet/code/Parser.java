@@ -10,7 +10,6 @@ import java.util.Map;
 
 public class Parser {
 
-    // Method name fixed to camelCase
     public static String pathFix(String input) {
         Path path = Paths.get(input);
         return path.toAbsolutePath().toString();
