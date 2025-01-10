@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.zip.DataFormatException;
 
 import static hexlet.code.Formatters.Plain.plain;
 import static hexlet.code.Formatters.Stylish.stylish;
@@ -16,7 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AppTest {
 
