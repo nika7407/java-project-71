@@ -22,7 +22,7 @@ public class Plain {
                         .append("From ").append(typeCheck(value1)).append(" to ").append(typeCheck(value2)).append("\n");
             }
         }
-        return diff.toString();
+        return diff.toString().endsWith("\n") ? diff.toString().substring(0, diff.length() - 1) : diff.toString();
     }
 
     public static String typeCheck(Object input) {
