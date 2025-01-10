@@ -5,26 +5,44 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
-@Command(name = "gendiff", description = "Compares two configuration files and shows a difference.")
-public class App implements Runnable {
+@Command(
+        name = "gendiff",
+        description = "Compares two configuration files and shows a difference."
+)
+public final class App implements Runnable {
 
-    @Option(names = {"-h", "--help"}, description = "Show this help message and exit.")
-    boolean help;
+    @Option(
+            names = {"-h", "--help"},
+            description = "Show this help message and exit."
+    )
+    private boolean help;
 
-    @Option(names = {"-V", "--version"}, description = "Print version information and exit.", usageHelp = true)
-    boolean version;
+    @Option(
+            names = {"-V", "--version"},
+            description = "Print version information and exit.",
+            usageHelp = true
+    )
+    private boolean version;
 
-    @Option(names = {"-f", "--format"},
+    @Option(
+            names = {"-f", "--format"},
             description = "Output format",
-            paramLabel = "format", defaultValue = "stylish")
-    String format;
+            paramLabel = "format",
+            defaultValue = "stylish"
+    )
+    private String format;
 
+    @Parameters(
+            paramLabel = "filepath1",
+            description = "Path to the first file"
+    )
+    private String path1;
 
-    @Parameters(paramLabel = "filepath1", description = "Path to the first file")
-    String path1;
-
-    @Parameters(paramLabel = "filepath2", description = "Path to the second file")
-    String path2;
+    @Parameters(
+            paramLabel = "filepath2",
+            description = "Path to the second file"
+    )
+    private String path2;
 
     @Override
     public void run() {
@@ -36,7 +54,7 @@ public class App implements Runnable {
             try {
                 System.out.println(Differ.generate(path1, path2, format));
             } catch (Exception e) {
-                System.out.println("there was problem regarding filetypes or paths");
+                System.out.println("There was a problem regarding file types or paths.");
             }
         }
     }
@@ -46,5 +64,24 @@ public class App implements Runnable {
         System.exit(exitCode);
     }
 
+    public boolean isHelp() {
+        return help;
+    }
 
+    public boolean isVersion() {
+        return version;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public String getPath1() {
+        return path1;
+    }
+
+    public String getPath2() {
+        return path2;
+    }
 }
+

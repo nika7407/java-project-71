@@ -18,12 +18,14 @@ public class Plain {
             var value2 = input2.get(key);
 
             if (!input1.containsKey(key)) {
-                diff.append("Property '").append(key).append("' was added with value: ").append(typeCheck(value2)).append("\n");
+                diff.append("Property '").append(key).append("' was added with value: ")
+                        .append(typeCheck(value2)).append("\n");
             } else if (!input2.containsKey(key)) {
                 diff.append("Property '").append(key).append("' was removed").append("\n");
             } else if (!Objects.deepEquals(value1, value2)) {
                 diff.append("Property '").append(key).append("' was updated. ")
-                        .append("From ").append(typeCheck(value1)).append(" to ").append(typeCheck(value2)).append("\n");
+                        .append("From ").append(typeCheck(value1))
+                        .append(" to ").append(typeCheck(value2)).append("\n");
             }
         }
         return diff.toString().endsWith("\n") ? diff.toString().substring(0, diff.length() - 1) : diff.toString();

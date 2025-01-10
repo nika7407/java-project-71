@@ -15,7 +15,7 @@ public class Differ {
         try {
             String fileType1 = path1.substring(path1.lastIndexOf(".") + 1);
             String fileType2 = path2.substring(path2.lastIndexOf(".") + 1);
-
+            // checks if the formats are correct and understandable
             if (!fileType1.equals(fileType2) || (!fileType1.equals("json")
                     && !fileType1.equals("yaml") && !fileType1.equals("yml"))) {
                 throw new DataFormatException("There's a problem with file types");
@@ -31,7 +31,7 @@ public class Differ {
                 data1 = Parser.getDataYaml(path1);
                 data2 = Parser.getDataYaml(path2);
             }
-
+            // reads the data from files and writes them into data 1 and 2
             String answer = "";
             switch (format) {
                 case "stylish":
