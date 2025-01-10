@@ -64,24 +64,5 @@ public final class App implements Runnable {
         System.exit(exitCode);
     }
 
-    public boolean isHelp() {
-        return help;
-    }
-
-    public boolean isVersion() {
-        return version;
-    }
-
-    public String getFormat() {
-        return format;
-    }
-
-    public String getPath1() {
-        return path1;
-    }
-
-    public String getPath2() {
-        return path2;
-    }
 }
 
