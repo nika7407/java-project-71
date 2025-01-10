@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.HashMap;
 
+import static hexlet.code.Formatters.Json.json;
 import static hexlet.code.Formatters.Plain.plain;
 import static hexlet.code.Formatters.Stylish.stylish;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,12 +50,12 @@ public class AppTest {
         fixedMap1.put("host", "hexlet.io");
 
         generetarorResult = "{\n"
-                + " - follow: false\n"
-                + "   host: hexlet.io\n"
-                + " - proxy: 123.234.53.22\n"
-                + " - timeout: 50\n"
-                + " + timeout: 20\n"
-                + " + verbose: true\n"
+                + "  - follow: false\n"
+                + "    host: hexlet.io\n"
+                + "  - proxy: 123.234.53.22\n"
+                + "  - timeout: 50\n"
+                + "  + timeout: 20\n"
+                + "  + verbose: true\n"
                 + "}";
     }
 
@@ -88,12 +89,12 @@ public class AppTest {
     public void testGenerateDiff() {
         String actual = stylish(fixedMap, fixedMap1);
         String expected = "{\n"
-                + " - follow: false\n"
-                + "   host: hexlet.io\n"
-                + " - proxy: 123.234.53.22\n"
-                + " - timeout: 50\n"
-                + " + timeout: 20\n"
-                + " + verbose: true\n"
+                + "  - follow: false\n"
+                + "    host: hexlet.io\n"
+                + "  - proxy: 123.234.53.22\n"
+                + "  - timeout: 50\n"
+                + "  + timeout: 20\n"
+                + "  + verbose: true\n"
                 + "}";
         assertEquals(expected, actual);
     }
@@ -118,7 +119,7 @@ public class AppTest {
     }
 
     @Test
-    public void testGeneratorJson() {
+    public void testGeneratorStylish() {
         try {
             String test = Differ.generate(pathjson, path1json, "stylish");
             assertEquals(generetarorResult, test);
@@ -139,12 +140,23 @@ public class AppTest {
 
     @Test
     public void testPlain() {
-        String expectedResult = "\nProperty 'follow' was removed\n"
+        String expectedResult = "Property 'follow' was removed\n"
                 + "Property 'proxy' was removed\n"
                 + "Property 'timeout' was updated. From 50 to 20\n"
-                + "Property 'verbose' was added with value: true\n";
+                + "Property 'verbose' was added with value: true";
 
         String actualOutput = plain(fixedMap, fixedMap1);
+        assertEquals(expectedResult, actualOutput);
+    }
+
+    @Test
+    public void testJsonFormater(){
+        String expectedResult = "[{\"type\":\"deleted\",\"value\":false,\"key\":\"follow\"}"
+                + ",{\"type\":\"unchanged\",\"value\":\"hexlet.io\",\"key\":\"host\"},"
+                + "{\"type\":\"deleted\",\"value\":\"123.234.53.22\",\"key\":\"proxy\"},"
+                + "{\"value2\":20,\"value1\":50,\"type\":\"changed\",\"key\":\"timeout\"},"
+                + "{\"type\":\"added\",\"value\":true,\"key\":\"verbose\"}]";
+        String actualOutput = json(fixedMap, fixedMap1);
         assertEquals(expectedResult, actualOutput);
     }
 

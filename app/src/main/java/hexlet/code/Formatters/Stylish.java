@@ -1,6 +1,9 @@
 package hexlet.code.Formatters;
 
-import java.util.*;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.Map;
+import java.util.Objects;
 
 public class Stylish {
     public static String stylish(Map<String, Object> input1, Map<String, Object> input2) {
