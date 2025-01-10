@@ -19,7 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public final class AppTest {
-
+    private static final int TIMEOUT_OLD = 50;
+    private static final int TIMEOUT_NEW = 20;
     private String pathjson;
     private String path1json;
     private String pathyaml;
@@ -31,6 +32,7 @@ public final class AppTest {
 
     @BeforeEach
     public void before() {
+
         pathjson = "src/test/resources/json1Test.json";
         path1json = "src/test/resources/json2Test.json";
         pathyaml = "src/test/resources/json1Test.yaml";
@@ -42,13 +44,13 @@ public final class AppTest {
 
         fixedMap = new HashMap<>(Map.of(
                 "host", "hexlet.io",
-                "timeout", 50,
+                "timeout", TIMEOUT_OLD,
                 "proxy", "123.234.53.22",
                 "follow", false
         ));
 
         fixedMap1 = new HashMap<>(Map.of(
-                "timeout", 20,
+                "timeout", TIMEOUT_NEW,
                 "verbose", true,
                 "host", "hexlet.io"
         ));
