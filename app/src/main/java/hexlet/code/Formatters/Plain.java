@@ -8,7 +8,7 @@ public class Plain {
         allKeys.addAll(input1.keySet());
         allKeys.addAll(input2.keySet());
 
-        StringBuilder diff = new StringBuilder("\n");
+        StringBuilder diff = new StringBuilder("");
         for (String key : allKeys) {
             var value1 = input1.get(key);
             var value2 = input2.get(key);
