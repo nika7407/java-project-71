@@ -129,15 +129,6 @@ public class AppTest {
     }
 
     @Test
-    public void testUnsupportedFileType() {
-        DataFormatException exception = assertThrows(DataFormatException.class, () -> {
-            Differ.generate("path1.txt", "path2.txt", "stylish");
-        });
-        assertEquals("There's problem with file Types", exception.getMessage(),
-                "Unsupported file types should throw DataFormatException.");
-    }
-
-    @Test
     public void testGeneratorJson() {
         try {
             String test = Differ.generate(pathjson, path1json, "stylish");

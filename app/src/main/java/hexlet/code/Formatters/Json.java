@@ -28,28 +28,28 @@ public class Json {
             Map<String, Object> map = new HashMap<>();
             if (!input1.containsKey(key)) {
                 // was added
-                map.put("key",key);
-                map.put("type","added");
-                map.put("value",value2);
+                map.put("key", key);
+                map.put("type", "added");
+                map.put("value", value2);
                 answer.add(map);
             } else if (!input2.containsKey(key)) {
                 // was removed
-                map.put("key",key);
-                map.put("type","deleted");
-                map.put("value",value1);
+                map.put("key", key);
+                map.put("type", "deleted");
+                map.put("value", value1);
                 answer.add(map);
             } else if (!Objects.deepEquals(value1, value2)) {
                 // was updated
-                map.put("key",key);
-                map.put("type","changed");
-                map.put("value1",value1);
-                map.put("value2",value2);
+                map.put("key", key);
+                map.put("type", "changed");
+                map.put("value1", value1);
+                map.put("value2", value2);
                 answer.add(map);
             } else {
                 // was unchanged
-                map.put("key",key);
-                map.put("type","unchanged");
-                map.put("value",value1);
+                map.put("key", key);
+                map.put("type", "unchanged");
+                map.put("value", value1);
                 answer.add(map);
             }
         }
