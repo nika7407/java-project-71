@@ -4,6 +4,7 @@ import hexlet.code.Parser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import picocli.CommandLine;
+
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Map;
@@ -17,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class AppTest {
+public final class AppTest {
 
     private String pathjson;
     private String path1json;
@@ -30,7 +31,6 @@ public class AppTest {
 
     @BeforeEach
     public void before() {
-        // Initialize the variables in the @BeforeEach method
         pathjson = "src/test/resources/json1Test.json";
         path1json = "src/test/resources/json2Test.json";
         pathyaml = "src/test/resources/json1Test.yaml";
@@ -41,11 +41,11 @@ public class AppTest {
         fixedMap1 = new HashMap<>();
 
         fixedMap.put("host", "hexlet.io");
-        fixedMap.put("timeout", 50);
+        fixedMap.put("timeout", Integer.valueOf(50));
         fixedMap.put("proxy", "123.234.53.22");
         fixedMap.put("follow", false);
 
-        fixedMap1.put("timeout", 20);
+        fixedMap1.put("timeout", Integer.valueOf(20));
         fixedMap1.put("verbose", true);
         fixedMap1.put("host", "hexlet.io");
 
@@ -150,7 +150,7 @@ public class AppTest {
     }
 
     @Test
-    public void testJsonFormater(){
+    public void testJsonFormater() {
         String expectedResult = "[{\"type\":\"deleted\",\"value\":false,\"key\":\"follow\"}"
                 + ",{\"type\":\"unchanged\",\"value\":\"hexlet.io\",\"key\":\"host\"},"
                 + "{\"type\":\"deleted\",\"value\":\"123.234.53.22\",\"key\":\"proxy\"},"
@@ -159,8 +159,8 @@ public class AppTest {
         String actualOutput = json(fixedMap, fixedMap1);
         assertEquals(expectedResult, actualOutput);
     }
-
 }
+
 
 
 
