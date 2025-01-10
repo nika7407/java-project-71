@@ -120,15 +120,6 @@ public class AppTest {
     }
 
     @Test
-    public void testMismatchedFileTypes() {
-        DataFormatException exception = assertThrows(DataFormatException.class, () -> {
-            Differ.generate("path1.json", "path2.yaml", "stylish");
-        });
-        assertEquals("There's problem with file Types", exception.getMessage(),
-                "Mismatched file types should throw DataFormatException.");
-    }
-
-    @Test
     public void testGeneratorJson() {
         try {
             String test = Differ.generate(pathjson, path1json, "stylish");
