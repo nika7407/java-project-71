@@ -1,10 +1,6 @@
 package hexlet.code.Formatters;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Plain {
     public static String plain(Map<String, Object> input1, Map<String, Object> input2) {
@@ -40,4 +36,5 @@ public class Plain {
             return input.toString();
         }
     }
+
 }

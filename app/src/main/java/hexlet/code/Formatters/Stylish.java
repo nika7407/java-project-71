@@ -1,8 +1,6 @@
 package hexlet.code.Formatters;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Stylish {
     public static String stylish(Map<String, Object> input1, Map<String, Object> input2) {
@@ -15,11 +13,11 @@ public class Stylish {
             var value1 = input1.get(key);
             var value2 = input2.get(key);
 
-            if (value1 == null) {
+            if (!input1.containsKey(key)) {
                 diff.append(" + ").append(key).append(": ").append(value2).append("\n");
-            } else if (value2 == null) {
+            } else if (!input2.containsKey(key)) {
                 diff.append(" - ").append(key).append(": ").append(value1).append("\n");
-            } else if (value1.equals(value2)) {
+            } else if (Objects.deepEquals(value1, value2)) {
                 diff.append("   ").append(key).append(": ").append(value1).append("\n");
             } else {
                 diff.append(" - ").append(key).append(": ").append(value1).append("\n");
@@ -29,4 +27,5 @@ public class Stylish {
         diff.append("}");
         return diff.toString();
     }
+
 }
