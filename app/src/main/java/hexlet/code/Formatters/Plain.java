@@ -19,7 +19,7 @@ public class Plain {
                 diff.append("Property '" + key + "' was removed").append("\n");
             } else if (!Objects.deepEquals(value1, value2)) {
                 diff.append("Property '" + key + "' was updated. ")
-                        .append("From " + typeCheck(value1) + " to " + typeCheck(value2)).append("\n");
+                        .append("From " + typeCheck(value1) + " to " + typeCheck(value2));
             }
         }
         return diff.toString();
