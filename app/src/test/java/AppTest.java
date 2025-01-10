@@ -40,14 +40,18 @@ public final class AppTest {
         createdMaps = null;
         fixedMap1 = new HashMap<>();
 
-        fixedMap.put("host", "hexlet.io");
-        fixedMap.put("timeout", Integer.valueOf(50));
-        fixedMap.put("proxy", "123.234.53.22");
-        fixedMap.put("follow", false);
+        fixedMap = new HashMap<>(Map.of(
+                "host", "hexlet.io",
+                "timeout", 50,
+                "proxy", "123.234.53.22",
+                "follow", false
+        ));
 
-        fixedMap1.put("timeout", Integer.valueOf(20));
-        fixedMap1.put("verbose", true);
-        fixedMap1.put("host", "hexlet.io");
+        fixedMap1 = new HashMap<>(Map.of(
+                "timeout", 20,
+                "verbose", true,
+                "host", "hexlet.io"
+        ));
 
         generetarorResult = "{\n"
                 + "  - follow: false\n"
