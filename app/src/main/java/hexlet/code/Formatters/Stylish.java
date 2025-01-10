@@ -14,14 +14,14 @@ public class Stylish {
             var value2 = input2.get(key);
 
             if (!input1.containsKey(key)) {
-                diff.append("+ ").append(key).append(": ").append(value2).append("\n");
+                diff.append(" + ").append(key).append(": ").append(value2).append("\n");
             } else if (!input2.containsKey(key)) {
-                diff.append("- ").append(key).append(": ").append(value1).append("\n");
+                diff.append(" - ").append(key).append(": ").append(value1).append("\n");
             } else if (Objects.deepEquals(value1, value2)) {
-                diff.append("  ").append(key).append(": ").append(value1).append("\n");
+                diff.append("   ").append(key).append(": ").append(value1).append("\n");
             } else {
-                diff.append("- ").append(key).append(": ").append(value1).append("\n");
-                diff.append("+ ").append(key).append(": ").append(value2).append("\n");
+                diff.append(" - ").append(key).append(": ").append(value1).append("\n");
+                diff.append(" + ").append(key).append(": ").append(value2).append("\n");
             }
         }
         diff.append("}");
