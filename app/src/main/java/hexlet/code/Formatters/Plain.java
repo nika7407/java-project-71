@@ -14,12 +14,12 @@ public class Plain {
             var value2 = input2.get(key);
 
             if (!input1.containsKey(key)) {
-                diff.append("Property '" + key + "' was added with value: ").append(typeCheck(value2)).append("\n");
+                diff.append("\nProperty '" + key + "' was added with value: ").append(typeCheck(value2));
             } else if (!input2.containsKey(key)) {
-                diff.append("Property '" + key + "' was removed").append("\n");
+                diff.append("\nProperty '" + key + "' was removed");
             } else if (!Objects.deepEquals(value1, value2)) {
-                diff.append("Property '" + key + "' was updated. ")
-                        .append("From " + typeCheck(value1) + " to " + typeCheck(value2));
+                diff.append("\nProperty '" + key + "' was updated. ")
+                        .append("\nFrom " + typeCheck(value1) + " to " + typeCheck(value2));
             }
         }
         return diff.toString();
