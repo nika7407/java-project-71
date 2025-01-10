@@ -1,134 +1,58 @@
 package hexlet.code;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.Formatters.Json;
+import hexlet.code.Formatters.Plain;
+import hexlet.code.Formatters.Stylish;
 
-import java.util.*;
+import java.io.IOException;
+import java.util.Map;
+
+import java.util.zip.DataFormatException;
 
 public class Differ {
+    public static String generate(String path1, String path2, String format) throws JsonProcessingException {
+        try {
+            String fileType1 = path1.substring(path1.lastIndexOf(".") + 1);
+            String fileType2 = path2.substring(path2.lastIndexOf(".") + 1);
 
-    public static String generate(Map<String, Object> input1, Map<String, Object> input2, String format) throws JsonProcessingException {
-        String answer = "";
-        switch (format) {
-            case "stylish":
-                answer = stylish(input1, input2);
-                break;
-            case "plain":
-                answer = plain(input1, input2);
-                break;
-            case "json":
-                answer = json(input1, input2);
-                break;
-            default:
-                System.out.println("Unknown format: " + format);
-                break;
-        }
-        return answer;
-    }
-
-    public static String stylish(Map<String, Object> input1, Map<String, Object> input2) {
-        Set<String> allKeys = new TreeSet<>();
-        allKeys.addAll(input1.keySet());
-        allKeys.addAll(input2.keySet());
-
-        StringBuilder diff = new StringBuilder("{\n");
-        for (String key : allKeys) {
-            var value1 = input1.get(key);
-            var value2 = input2.get(key);
-
-            if (value1 == null) {
-                diff.append(" + ").append(key).append(": ").append(value2).append("\n");
-            } else if (value2 == null) {
-                diff.append(" - ").append(key).append(": ").append(value1).append("\n");
-            } else if (value1.equals(value2)) {
-                diff.append("   ").append(key).append(": ").append(value1).append("\n");
-            } else {
-                diff.append(" - ").append(key).append(": ").append(value1).append("\n");
-                diff.append(" + ").append(key).append(": ").append(value2).append("\n");
+            if (!fileType1.equals(fileType2) || (!fileType1.equals("json")
+                    && !fileType1.equals("yaml") && !fileType1.equals("yml"))) {
+                throw new DataFormatException("There's a problem with file types");
             }
-        }
-        diff.append("}");
-        return diff.toString();
-    }
 
-    public static String plain(Map<String, Object> input1, Map<String, Object> input2) {
-        Set<String> allKeys = new TreeSet<>();
-        allKeys.addAll(input1.keySet());
-        allKeys.addAll(input2.keySet());
+            Map<String, Object> data1 = null;
+            Map<String, Object> data2 = null;
 
-        StringBuilder diff = new StringBuilder("\n");
-        for (String key : allKeys) {
-            var value1 = input1.get(key);
-            var value2 = input2.get(key);
-
-            if (!input1.containsKey(key)) {
-                diff.append("Property '" + key + "' was added with value: ").append(typeCheck(value2)).append("\n");
-            } else if (!input2.containsKey(key)) {
-                diff.append("Property '" + key + "' was removed").append("\n");
-            } else if (!Objects.deepEquals(value1, value2)) {
-                diff.append("Property '" + key + "' was updated. ")
-                        .append("From " + typeCheck(value1) + " to " + typeCheck(value2)).append("\n");
+            if (fileType1.equals("json")) {
+                data1 = Parser.getDataJson(path1);
+                data2 = Parser.getDataJson(path2);
+            } else if (fileType1.equals("yaml") || fileType1.equals("yml")) {
+                data1 = Parser.getDataYaml(path1);
+                data2 = Parser.getDataYaml(path2);
             }
-        }
-        return diff.toString();
-    }
 
-    public static String json(Map<String, Object> input1, Map<String, Object> input2) throws JsonProcessingException {
-        Set<String> allKeys = new TreeSet<>();
-        allKeys.addAll(input1.keySet());
-        allKeys.addAll(input2.keySet());
-
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        List<Map<String, Object>> answer = new ArrayList<>();
-
-        StringBuilder diff = new StringBuilder("\n");
-        for (String key : allKeys) {
-            var value1 = input1.get(key);
-            var value2 = input2.get(key);
-            Map<String, Object> map = new HashMap<>();
-            if (!input1.containsKey(key)) {
-                // was added
-                map.put("key",key);
-                map.put("type","added");
-                map.put("value",value2);
-                answer.add(map);
-            } else if (!input2.containsKey(key)) {
-                // was removed
-                map.put("key",key);
-                map.put("type","deleted");
-                map.put("value",value1);
-                answer.add(map);
-            } else if (!Objects.deepEquals(value1, value2)) {
-                // was updated
-                map.put("key",key);
-                map.put("type","changed");
-                map.put("value1",value1);
-                map.put("value2",value2);
-                answer.add(map);
-            } else {
-                // was unchanged
-                map.put("key",key);
-                map.put("type","unchanged");
-                map.put("value",value1);
-                answer.add(map);
+            String answer = "";
+            switch (format) {
+                case "stylish":
+                    answer = Stylish.stylish(data1, data2);
+                    break;
+                case "plain":
+                    answer = Plain.plain(data1, data2);
+                    break;
+                case "json":
+                    answer = Json.json(data1, data2);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown format: " + format);
             }
+            return answer;
+        } catch (DataFormatException | IOException ex) {
+            throw new RuntimeException("Error processing files: " + ex.getMessage(), ex);
         }
-
-        return  objectMapper.writeValueAsString(answer);
-
     }
 
-    public static String typeCheck(Object input) {
-        if (input instanceof String) {
-            return "'" + input + "'";
-        } else if (input instanceof Map || input instanceof List) {
-            return "[complex value]";
-        } else if (input == null) {
-            return "null";
-        } else {
-            return input.toString();
-        }
+    public static String generate(String path1, String path2) throws IOException {
+        return generate(path1, path2, "stylish");
     }
 }
-

@@ -1,4 +1,5 @@
 import hexlet.code.App;
+import hexlet.code.Differ;
 import hexlet.code.Parser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,10 +9,9 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.zip.DataFormatException;
-import hexlet.code.FullGenerator;
 
-import static hexlet.code.Differ.plain;
-import static hexlet.code.Differ.stylish;
+import static hexlet.code.Formatters.Plain.plain;
+import static hexlet.code.Formatters.Stylish.stylish;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -122,7 +122,7 @@ public class AppTest {
     @Test
     public void testMismatchedFileTypes() {
         DataFormatException exception = assertThrows(DataFormatException.class, () -> {
-            FullGenerator.Generate("path1.json", "path2.yaml", "stylish");
+            Differ.generate("path1.json", "path2.yaml", "stylish");
         });
         assertEquals("There's problem with file Types", exception.getMessage(),
                 "Mismatched file types should throw DataFormatException.");
@@ -131,7 +131,7 @@ public class AppTest {
     @Test
     public void testUnsupportedFileType() {
         DataFormatException exception = assertThrows(DataFormatException.class, () -> {
-            FullGenerator.Generate("path1.txt", "path2.txt", "stylish");
+            Differ.generate("path1.txt", "path2.txt", "stylish");
         });
         assertEquals("There's problem with file Types", exception.getMessage(),
                 "Unsupported file types should throw DataFormatException.");
@@ -140,7 +140,7 @@ public class AppTest {
     @Test
     public void testGeneratorJson() {
         try {
-            String test = FullGenerator.Generate(pathjson, path1json, "stylish");
+            String test = Differ.generate(pathjson, path1json, "stylish");
             assertEquals(generetarorResult, test);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -150,7 +150,7 @@ public class AppTest {
     @Test
     public void testGeneratorYaml() {
         try {
-            String test = FullGenerator.Generate(pathyaml, pathyaml1, "stylish");
+            String test = Differ.generate(pathyaml, pathyaml1, "stylish");
             assertEquals(generetarorResult, test);
         } catch (Exception e) {
             throw new RuntimeException(e);

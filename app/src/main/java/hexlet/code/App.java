@@ -14,9 +14,7 @@ public class App implements Runnable {
     @Option(names = {"-V", "--version"}, description = "Print version information and exit.", usageHelp = true)
     boolean version;
 
-    @Option(names = {"-f", "--format"},
-            description = "Output format (default: stylish)",
-            defaultValue = "stylish", paramLabel = "format")
+    @Option(names = {"-f", "--format"}, description = "Output format", paramLabel = "format")
     String format;
 
     @Parameters(paramLabel = "filepath1", description = "Path to the first file")
@@ -33,7 +31,7 @@ public class App implements Runnable {
             System.out.println("version 0.1");
         } else {
             try {
-                System.out.println(FullGenerator.Generate(path1, path2, format));
+                System.out.println(Differ.generate(path1, path2, format));
             } catch (Exception e) {
                 System.out.println("there was problem regarding filetypes");
             }
