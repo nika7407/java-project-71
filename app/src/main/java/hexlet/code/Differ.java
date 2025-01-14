@@ -32,6 +32,8 @@ public class Differ {
                 data2 = getDataYaml(path2);
             }
             // Reads the data from files and writes them into data1 and data2
+            // converts both data's into list with maps and difference keys
+            // after that through a formatting style outputs right format
             return Parser.formattingStyle(Parser.parser(data1, data2), format);
 
         } catch (DataFormatException | IOException ex) {
