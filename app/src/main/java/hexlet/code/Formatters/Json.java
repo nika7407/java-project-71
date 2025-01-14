@@ -8,6 +8,7 @@ import java.util.Map;
 public class Json {
     public static String json(List<Map<String, Object>> list) {
         try {
+            list.sort((map1, map2) -> ((String) map1.get("key")).compareTo((String) map2.get("key")));
             ObjectMapper objectMapper = new ObjectMapper();
             return objectMapper.writeValueAsString(list);
         } catch (JsonProcessingException e) {
