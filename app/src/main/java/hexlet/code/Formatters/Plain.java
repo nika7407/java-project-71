@@ -40,11 +40,14 @@ public class Plain {
                     break;
 
                 case "unchanged":
-                    continue;
+                    break;
+
+                default:
+                    break;
             }
         }
 
-        // Remove the trailing newline character if exists
+        // Remove the trailing newline character if it exists
         String result = diff.toString();
         if (result.endsWith("\n")) {
             result = result.substring(0, result.length() - 1);
@@ -65,3 +68,4 @@ public class Plain {
         }
     }
 }
+

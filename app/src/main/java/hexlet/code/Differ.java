@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
-
 import java.util.zip.DataFormatException;
 
 public class Differ {
@@ -16,7 +15,7 @@ public class Differ {
         try {
             String fileType1 = fileFormat(path1);
             String fileType2 = fileFormat(path2);
-            // checks if the formats are correct and understandable
+            // Checks if the formats are normal
             if (!fileType1.equals(fileType2) || (!fileType1.equals("json")
                     && !fileType1.equals("yaml") && !fileType1.equals("yml"))) {
                 throw new DataFormatException("There's a problem with file types");
@@ -32,10 +31,8 @@ public class Differ {
                 data1 = getDataYaml(path1);
                 data2 = getDataYaml(path2);
             }
-            // reads the data from files and writes them into data 1 and 2
-           return Parser.formattingStyle(Parser.parser(data1,data2),format);
-
-
+            // Reads the data from files and writes them into data1 and data2
+            return Parser.formattingStyle(Parser.parser(data1, data2), format);
 
         } catch (DataFormatException | IOException ex) {
             throw new RuntimeException("Error processing files: " + ex.getMessage(), ex);
@@ -46,7 +43,7 @@ public class Differ {
         return generate(path1, path2, "stylish");
     }
 
-    public static String fileFormat(String input){
+    public static String fileFormat(String input) {
         return input.substring(input.lastIndexOf(".") + 1);
     }
 
@@ -54,7 +51,7 @@ public class Differ {
         Path path = Paths.get(input);
         return path.toAbsolutePath().toString();
         // Converts relative path into absolute;
-        // does nothing if already absolute
+        // Does nothing if already absolute
     }
 
     public static Map<String, Object> getDataJson(String filePath) throws IOException {
