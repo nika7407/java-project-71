@@ -1,6 +1,5 @@
 import hexlet.code.App;
 import hexlet.code.Differ;
-import hexlet.code.Parser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import picocli.CommandLine;
