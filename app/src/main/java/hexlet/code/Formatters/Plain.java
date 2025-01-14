@@ -2,36 +2,58 @@ package hexlet.code.Formatters;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class Plain {
-    public static String plain(Map<String, Object> input1, Map<String, Object> input2) {
-        Set<String> allKeys = new TreeSet<>();
-        allKeys.addAll(input1.keySet());
-        allKeys.addAll(input2.keySet());
 
-        StringBuilder diff = new StringBuilder("");
-        for (String key : allKeys) {
-            var value1 = input1.get(key);
-            var value2 = input2.get(key);
+    public static String plain(List<Map<String, Object>> list) {
+        StringBuilder diff = new StringBuilder();
 
-            if (!input1.containsKey(key)) {
-                diff.append("Property '").append(key).append("' was added with value: ")
-                        .append(typeCheck(value2)).append("\n");
-            } else if (!input2.containsKey(key)) {
-                diff.append("Property '").append(key).append("' was removed").append("\n");
-            } else if (!Objects.deepEquals(value1, value2)) {
-                diff.append("Property '").append(key).append("' was updated. ")
-                        .append("From ").append(typeCheck(value1))
-                        .append(" to ").append(typeCheck(value2)).append("\n");
+        for (Map<String, Object> map : list) {
+            String property = (String) map.get("key");
+            Object value1 = map.get("value");
+            String type = map.get("type").toString();
+
+            switch (type) {
+                case "added":
+                    diff.append("Property '")
+                            .append(property)
+                            .append("' was added with value: ")
+                            .append(typeCheck(value1))
+                            .append("\n");
+                    break;
+
+                case "deleted":
+                    diff.append("Property '")
+                            .append(property)
+                            .append("' was removed\n");
+                    break;
+
+                case "changed":
+                    Object value2 = map.get("value2");
+                    diff.append("Property '")
+                            .append(property)
+                            .append("' was updated. From ")
+                            .append(typeCheck(value1))
+                            .append(" to ")
+                            .append(typeCheck(value2))
+                            .append("\n");
+                    break;
+
+                case "unchanged":
+                    continue;
             }
         }
-        return diff.toString().endsWith("\n") ? diff.toString().substring(0, diff.length() - 1) : diff.toString();
+
+        // Remove the trailing newline character if exists
+        String result = diff.toString();
+        if (result.endsWith("\n")) {
+            result = result.substring(0, result.length() - 1);
+        }
+
+        return result;
     }
 
-    public static String typeCheck(Object input) {
+    private static String typeCheck(Object input) {
         if (input instanceof String) {
             return "'" + input + "'";
         } else if (input instanceof Map || input instanceof List) {
@@ -42,5 +64,4 @@ public class Plain {
             return input.toString();
         }
     }
-
 }

@@ -1,30 +1,34 @@
 package hexlet.code.Formatters;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+
 
 public class Stylish {
-    public static String stylish(Map<String, Object> input1, Map<String, Object> input2) {
-        Set<String> allKeys = new TreeSet<>();
-        allKeys.addAll(input1.keySet());
-        allKeys.addAll(input2.keySet());
+    public static String stylish(List<Map<String, Object>> list) {
 
         StringBuilder diff = new StringBuilder("{\n");
-        for (String key : allKeys) {
-            var value1 = input1.get(key);
-            var value2 = input2.get(key);
+        for (Map<String, Object> map : list) {
+            String property = (String) map.get("key");
+            Object value1 = map.get("value");
+            String type = map.get("type").toString();
 
-            if (!input1.containsKey(key)) {
-                diff.append("  + ").append(key).append(": ").append(value2).append("\n");
-            } else if (!input2.containsKey(key)) {
-                diff.append("  - ").append(key).append(": ").append(value1).append("\n");
-            } else if (Objects.deepEquals(value1, value2)) {
-                diff.append("    ").append(key).append(": ").append(value1).append("\n");
-            } else {
-                diff.append("  - ").append(key).append(": ").append(value1).append("\n");
-                diff.append("  + ").append(key).append(": ").append(value2).append("\n");
+            switch (type) {
+                case "added":
+                    diff.append("  + ").append(property).append(": ").append(value1).append("\n");
+                    break;
+
+                case "deleted":
+                    diff.append("  - ").append(property).append(": ").append(value1).append("\n");
+                    break;
+
+                case "changed":
+                    diff.append("  - ").append(property).append(": ").append(value1).append("\n");
+                    diff.append("  + ").append(property).append(": ").append(map.get("value2")).append("\n");
+                    break;
+
+                case "unchanged":
+                    diff.append("    ").append(property).append(": ").append(value1).append("\n");
             }
         }
         diff.append("}");

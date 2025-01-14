@@ -7,6 +7,7 @@ import picocli.CommandLine;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
@@ -29,6 +30,7 @@ public final class AppTest {
     private Map<String, Object> fixedMap;
     private Map<String, Object> createdMaps;
     private Map<String, Object> fixedMap1;
+    private List<Map<String, Object>> diffListWithKeys;
 
     @BeforeEach
     public void before() {
@@ -54,6 +56,15 @@ public final class AppTest {
                 "verbose", true,
                 "host", "hexlet.io"
         ));
+
+        diffListWithKeys = List.of(
+                new HashMap<>(Map.of("key", "timeout", "type", "changed", "value", TIMEOUT_OLD, "value2", TIMEOUT_NEW)),
+                new HashMap<>(Map.of("key", "proxy", "type", "deleted", "value", "123.234.53.22")),
+                new HashMap<>(Map.of("key", "follow", "type", "deleted", "value", false)),
+                new HashMap<>(Map.of("key", "verbose", "type", "added", "value", true)),
+                new HashMap<>(Map.of("key", "host", "type", "unchanged", "value", "hexlet.io"))
+        );
+
 
         generetarorResult = "{\n"
                 + "  - follow: false\n"
@@ -82,7 +93,7 @@ public final class AppTest {
     @Test
     public void testGetDataJson() {
         try {
-            createdMaps = Parser.getDataJson(pathjson);
+            createdMaps = Differ.getDataJson(pathjson);
         } catch (IOException e) {
             fail("IOException occurred while reading the file: " + e.getMessage());
         }
@@ -93,7 +104,7 @@ public final class AppTest {
 
     @Test
     public void testGenerateDiff() {
-        String actual = stylish(fixedMap, fixedMap1);
+        String actual = stylish(diffListWithKeys);
         String expected = "{\n"
                 + "  - follow: false\n"
                 + "    host: hexlet.io\n"
@@ -108,7 +119,7 @@ public final class AppTest {
     @Test
     public void testGetDataYaml() {
         try {
-            createdMaps = Parser.getDataYaml(pathyaml);
+            createdMaps = Differ.getDataYaml(pathyaml);
         } catch (IOException e) {
             fail("IOException occurred while reading the file: " + e.getMessage());
         }
@@ -120,7 +131,7 @@ public final class AppTest {
     @Test
     public void testPathFix() {
         String relativePath = "src/main/resources/file.txt";
-        String absolutePath = Parser.pathFix(relativePath);
+        String absolutePath = Differ.pathFix(relativePath);
         assertTrue(Paths.get(absolutePath).isAbsolute(), "Path is not absolute.");
     }
 
@@ -151,7 +162,7 @@ public final class AppTest {
                 + "Property 'timeout' was updated. From 50 to 20\n"
                 + "Property 'verbose' was added with value: true";
 
-        String actualOutput = plain(fixedMap, fixedMap1);
+        String actualOutput = plain(diffListWithKeys);
         assertEquals(expectedResult, actualOutput);
     }
 
@@ -162,7 +173,7 @@ public final class AppTest {
                 + "{\"type\":\"deleted\",\"value\":\"123.234.53.22\",\"key\":\"proxy\"},"
                 + "{\"value2\":20,\"value1\":50,\"type\":\"changed\",\"key\":\"timeout\"},"
                 + "{\"type\":\"added\",\"value\":true,\"key\":\"verbose\"}]";
-        String actualOutput = json(fixedMap, fixedMap1);
+        String actualOutput = json(diffListWithKeys);
         assertEquals(expectedResult, actualOutput);
     }
 }
