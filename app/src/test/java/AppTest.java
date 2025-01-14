@@ -57,11 +57,11 @@ public final class AppTest {
         ));
 
         diffListWithKeys = List.of(
-                new HashMap<>(Map.of("key", "timeout", "type", "changed", "value", TIMEOUT_OLD, "value2", TIMEOUT_NEW)),
-                new HashMap<>(Map.of("key", "proxy", "type", "deleted", "value", "123.234.53.22")),
-                new HashMap<>(Map.of("key", "follow", "type", "deleted", "value", false)),
-                new HashMap<>(Map.of("key", "verbose", "type", "added", "value", true)),
-                new HashMap<>(Map.of("key", "host", "type", "unchanged", "value", "hexlet.io"))
+                new HashMap<>(Map.of("type", "deleted", "value", false, "key", "follow")),
+                new HashMap<>(Map.of("type", "unchanged", "value", "hexlet.io", "key", "host")),
+                new HashMap<>(Map.of("type", "deleted", "value", "123.234.53.22", "key", "proxy")),
+                new HashMap<>(Map.of("type", "changed", "value", 50, "value2", 20, "key", "timeout")),
+                new HashMap<>(Map.of("type", "added", "value", true, "key", "verbose"))
         );
 
 
