@@ -170,8 +170,9 @@ public final class AppTest {
         String expectedResult = "[{\"type\":\"deleted\",\"value\":false,\"key\":\"follow\"}"
                 + ",{\"type\":\"unchanged\",\"value\":\"hexlet.io\",\"key\":\"host\"},"
                 + "{\"type\":\"deleted\",\"value\":\"123.234.53.22\",\"key\":\"proxy\"},"
-                + "{\"value2\":20,\"value1\":50,\"type\":\"changed\",\"key\":\"timeout\"},"
+                + "{\"value2\":20,\"type\":\"changed\",\"value\":50,\"key\":\"timeout\"},"
                 + "{\"type\":\"added\",\"value\":true,\"key\":\"verbose\"}]";
+
         String actualOutput = json(diffListWithKeys);
         assertEquals(expectedResult, actualOutput);
     }
