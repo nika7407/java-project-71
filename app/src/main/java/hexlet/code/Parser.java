@@ -1,8 +1,8 @@
 package hexlet.code;
 
-import hexlet.code.Formatters.Json;
-import hexlet.code.Formatters.Plain;
-import hexlet.code.Formatters.Stylish;
+import hexlet.code.Formatters.json;
+import hexlet.code.Formatters.plain;
+import hexlet.code.Formatters.stylish;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,11 +59,11 @@ public class Parser {
     public static String formattingStyle(List<Map<String, Object>> list, String format) {
         switch (format) {
             case "stylish":
-                return Stylish.stylish(list);
+                return stylish.stylish(list);
             case "plain":
-                return Plain.plain(list);
+                return plain.plain(list);
             case "json":
-                return Json.json(list);
+                return json.json(list);
             default:
                 throw new IllegalArgumentException("Unknown format: " + format);
         }

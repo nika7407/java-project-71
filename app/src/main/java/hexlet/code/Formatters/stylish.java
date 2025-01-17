@@ -3,7 +3,7 @@ package hexlet.code.Formatters;
 import java.util.List;
 import java.util.Map;
 
-public class Stylish {
+public class stylish {
     public static String stylish(List<Map<String, Object>> list) {
         StringBuilder diff = new StringBuilder("{\n");
         for (Map<String, Object> map : list) {

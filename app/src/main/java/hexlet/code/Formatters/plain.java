@@ -3,7 +3,7 @@ package hexlet.code.Formatters;
 import java.util.List;
 import java.util.Map;
 
-public class Plain {
+public class plain {
 
     public static String plain(List<Map<String, Object>> list) {
         StringBuilder diff = new StringBuilder();

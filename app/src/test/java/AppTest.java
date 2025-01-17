@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
-import static hexlet.code.Formatters.Json.json;
-import static hexlet.code.Formatters.Plain.plain;
-import static hexlet.code.Formatters.Stylish.stylish;
+import static hexlet.code.Formatters.json.json;
+import static hexlet.code.Formatters.plain.plain;
+import static hexlet.code.Formatters.stylish.stylish;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
