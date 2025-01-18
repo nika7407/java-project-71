@@ -1,9 +1,9 @@
-package hexlet.code.Formatters;
+package hexlet.code.formatters;
 
 import java.util.List;
 import java.util.Map;
 
-public class plain {
+public class Plain {
 
     public static String plain(List<Map<String, Object>> list) {
         StringBuilder diff = new StringBuilder();

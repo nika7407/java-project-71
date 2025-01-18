@@ -1,5 +1,7 @@
 import hexlet.code.App;
 import hexlet.code.Differ;
+import hexlet.code.Parser;
+import hexlet.code.util.TestUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import picocli.CommandLine;
@@ -10,9 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
-import static hexlet.code.Formatters.json.json;
-import static hexlet.code.Formatters.plain.plain;
-import static hexlet.code.Formatters.stylish.stylish;
+import static hexlet.code.formatters.Json.json;
+import static hexlet.code.formatters.Plain.plain;
+import static hexlet.code.formatters.Stylish.stylish;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -32,7 +34,7 @@ public final class AppTest {
     private List<Map<String, Object>> diffListWithKeys;
 
     @BeforeEach
-    public void before() {
+    public void before() throws IOException {
 
         pathjson = "src/test/resources/json1Test.json";
         path1json = "src/test/resources/json2Test.json";
@@ -64,15 +66,8 @@ public final class AppTest {
                 new HashMap<>(Map.of("type", "added", "value", true, "key", "verbose"))
         );
 
+        generetarorResult = TestUtils.readFixture("expectedResultStylish");
 
-        generetarorResult = "{\n"
-                + "  - follow: false\n"
-                + "    host: hexlet.io\n"
-                + "  - proxy: 123.234.53.22\n"
-                + "  - timeout: 50\n"
-                + "  + timeout: 20\n"
-                + "  + verbose: true\n"
-                + "}";
     }
 
     @Test
@@ -92,7 +87,7 @@ public final class AppTest {
     @Test
     public void testGetDataJson() {
         try {
-            createdMaps = Differ.getDataJson(pathjson);
+            createdMaps = Parser.getDataJson(pathjson);
         } catch (IOException e) {
             fail("IOException occurred while reading the file: " + e.getMessage());
         }
@@ -118,7 +113,7 @@ public final class AppTest {
     @Test
     public void testGetDataYaml() {
         try {
-            createdMaps = Differ.getDataYaml(pathyaml);
+            createdMaps = Parser.getDataYaml(pathyaml);
         } catch (IOException e) {
             fail("IOException occurred while reading the file: " + e.getMessage());
         }
@@ -155,24 +150,15 @@ public final class AppTest {
     }
 
     @Test
-    public void testPlain() {
-        String expectedResult = "Property 'follow' was removed\n"
-                + "Property 'proxy' was removed\n"
-                + "Property 'timeout' was updated. From 50 to 20\n"
-                + "Property 'verbose' was added with value: true";
-
+    public void testPlain() throws IOException {
+        String expectedResult = TestUtils.readFixture("expectedResultPlain");
         String actualOutput = plain(diffListWithKeys);
         assertEquals(expectedResult, actualOutput);
     }
 
     @Test
-    public void testJsonFormater() {
-        String expectedResult = "[{\"type\":\"deleted\",\"value\":false,\"key\":\"follow\"}"
-                + ",{\"type\":\"unchanged\",\"value\":\"hexlet.io\",\"key\":\"host\"},"
-                + "{\"type\":\"deleted\",\"value\":\"123.234.53.22\",\"key\":\"proxy\"},"
-                + "{\"value2\":20,\"type\":\"changed\",\"value\":50,\"key\":\"timeout\"},"
-                + "{\"type\":\"added\",\"value\":true,\"key\":\"verbose\"}]";
-
+    public void testJsonFormater() throws IOException {
+        String expectedResult = TestUtils.readFixture("expectedResultJson.json");
         String actualOutput = json(diffListWithKeys);
         assertEquals(expectedResult, actualOutput);
     }

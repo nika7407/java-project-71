@@ -1,9 +1,9 @@
-package hexlet.code.Formatters;
+package hexlet.code.formatters;
 
 import java.util.List;
 import java.util.Map;
 
-public class stylish {
+public class Stylish {
     public static String stylish(List<Map<String, Object>> list) {
         StringBuilder diff = new StringBuilder("{\n");
         for (Map<String, Object> map : list) {

@@ -1,9 +1,7 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import hexlet.code.formatters.Formatter;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,21 +19,14 @@ public class Differ {
                 throw new DataFormatException("There's a problem with file types");
             }
 
-            Map<String, Object> data1 = null;
-            Map<String, Object> data2 = null;
+            Map<String, Object> data1 = Parser.parse(path1);
+            Map<String, Object> data2 = Parser.parse(path2);
 
-            if (fileType1.equals("json")) {
-                data1 = getDataJson(path1);
-                data2 = getDataJson(path2);
-            } else if (fileType1.equals("yaml") || fileType1.equals("yml")) {
-                data1 = getDataYaml(path1);
-                data2 = getDataYaml(path2);
-            }
             // Reads the data from files and writes them into data1 and data2
             // converts both data's into list with maps and difference keys
             // after that through a formatting style outputs right format
-            return Parser.formattingStyle(Parser.parser(data1, data2), format);
-
+            return Formatter.formattingStyle(DifferMaker.diff(data1, data2), format);
+            // crates differ map list
         } catch (DataFormatException | IOException ex) {
             throw new RuntimeException("Error processing files: " + ex.getMessage(), ex);
         }
@@ -54,17 +45,5 @@ public class Differ {
         return path.toAbsolutePath().toString();
         // Converts relative path into absolute;
         // Does nothing if already absolute
-    }
-
-    public static Map<String, Object> getDataJson(String filePath) throws IOException {
-        String fixedPath = pathFix(filePath);
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(new File(fixedPath), Map.class);
-    }
-
-    public static Map<String, Object> getDataYaml(String filePath) throws IOException {
-        String fixedPath = pathFix(filePath);
-        ObjectMapper mapper = new YAMLMapper();
-        return mapper.readValue(new File(fixedPath), Map.class);
     }
 }

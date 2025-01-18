@@ -1,73 +1,36 @@
 package hexlet.code;
 
-import hexlet.code.Formatters.json;
-import hexlet.code.Formatters.plain;
-import hexlet.code.Formatters.stylish;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.TreeSet;
+import static hexlet.code.Differ.fileFormat;
 
 public class Parser {
 
-    public static List<Map<String, Object>> parser(Map<String, Object> input1, Map<String, Object> input2) {
-        Set<String> allKeys = new TreeSet<>();
-        allKeys.addAll(input1.keySet());
-        allKeys.addAll(input2.keySet());
+public static Map<String, Object> parse(String path) throws IOException {
+    String fileType = fileFormat(path);
+    if (fileType.equals("json")) {
+        return getDataJson(path);
+    } else if (fileType.equals("yaml")) {
+        return  getDataYaml(path);
+    }
+    return null;
+}
 
-        List<Map<String, Object>> answer = new ArrayList<>();
-
-        for (String key : allKeys) {
-            var value1 = input1.get(key);
-            var value2 = input2.get(key);
-            Map<String, Object> map = new HashMap<>();
-
-            if (!input1.containsKey(key)) {
-                // was added
-                map.put("key", key);
-                map.put("type", "added");
-                map.put("value", value2);
-                answer.add(map);
-            } else if (!input2.containsKey(key)) {
-                // was removed
-                map.put("key", key);
-                map.put("type", "deleted");
-                map.put("value", value1);
-                answer.add(map);
-            } else if (!Objects.deepEquals(value1, value2)) {
-                // was updated
-                map.put("key", key);
-                map.put("type", "changed");
-                map.put("value", value1);
-                map.put("value2", value2);
-                answer.add(map);
-            } else {
-                // was unchanged
-                map.put("key", key);
-                map.put("type", "unchanged");
-                map.put("value", value1);
-                answer.add(map);
-            }
-        }
-        return answer;
+    public static Map<String, Object> getDataJson(String filePath) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(new File(filePath), Map.class);
     }
 
-    public static String formattingStyle(List<Map<String, Object>> list, String format) {
-        switch (format) {
-            case "stylish":
-                return stylish.stylish(list);
-            case "plain":
-                return plain.plain(list);
-            case "json":
-                return json.json(list);
-            default:
-                throw new IllegalArgumentException("Unknown format: " + format);
-        }
+    public static Map<String, Object> getDataYaml(String filePath) throws IOException {
+        ObjectMapper mapper = new YAMLMapper();
+        return mapper.readValue(new File(filePath), Map.class);
     }
+
+
 }
 
 
