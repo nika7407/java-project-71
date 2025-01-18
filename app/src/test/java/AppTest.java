@@ -113,7 +113,8 @@ public final class AppTest {
     @Test
     public void testGetDataYaml() {
         try {
-            createdMaps = Parser.getDataYaml(pathyaml);
+            createdMaps = Parser.parse(pathyaml);
+            System.out.println(createdMaps);
         } catch (IOException e) {
             fail("IOException occurred while reading the file: " + e.getMessage());
         }
@@ -162,6 +163,7 @@ public final class AppTest {
         String actualOutput = json(diffListWithKeys);
         assertEquals(expectedResult, actualOutput);
     }
+
 }
 
 
