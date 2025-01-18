@@ -13,7 +13,7 @@ public class Formatter {
             case "json":
                 return Json.json(list);
             default:
-                throw new IllegalArgumentException("Unknown format: " + format);
+                return Stylish.stylish(list);
         }
     }
 }
