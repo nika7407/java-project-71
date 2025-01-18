@@ -25,8 +25,6 @@ public class Differ {
             // Reads the data from files and writes them into data1 and data2
             // converts both data's into list with maps and difference keys
             // after that through a formatting style outputs right format
-            assert data1 != null;
-            assert data2 != null;
             return Formatter.formattingStyle(DifferMaker.diff(data1, data2), format);
             // crates differ map list
         } catch (DataFormatException | IOException ex) {
