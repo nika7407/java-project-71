@@ -10,9 +10,6 @@ import java.util.TreeSet;
 
 public class DifferMaker {
     public static List<Map<String, Object>> diff(Map<String, Object> input1, Map<String, Object> input2) {
-        if (input1 == null || input2 == null) {
-            throw new IllegalArgumentException("Input maps cannot be null");
-        }
 
         Set<String> allKeys = new TreeSet<>();
         allKeys.addAll(input1.keySet());
