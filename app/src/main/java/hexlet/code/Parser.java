@@ -14,7 +14,7 @@ public static Map<String, Object> parse(String path) throws IOException {
     String fileType = fileFormat(path);
     if (fileType.equals("json")) {
         return getDataJson(path);
-    } else if (fileType.equals("yaml")) {
+    } else if (fileType.equals("yaml") || fileType.equals("yml")) {
         return  getDataYaml(path);
     }
     return null;
