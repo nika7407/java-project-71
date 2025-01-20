@@ -23,10 +23,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 public final class AppTest {
     private static final int TIMEOUT_OLD = 50;
     private static final int TIMEOUT_NEW = 20;
-    private String pathjson;
-    private String path1json;
-    private String pathyaml;
-    private String pathyaml1;
     private String generetarorResult;
     private Map<String, Object> fixedMap;
     private Map<String, Object> createdMaps;
@@ -36,10 +32,6 @@ public final class AppTest {
     @BeforeEach
     public void before() throws IOException {
 
-        pathjson = "src/test/resources/json1Test.json";
-        path1json = "src/test/resources/json2Test.json";
-        pathyaml = "src/test/resources/json1Test.yaml";
-        pathyaml1 = "src/test/resources/json2Test.yaml";
 
         fixedMap = new HashMap<>();
         createdMaps = null;
@@ -87,7 +79,7 @@ public final class AppTest {
     @Test
     public void testGetDataJson() {
         try {
-            createdMaps = Parser.getDataJson(pathjson);
+            createdMaps = Parser.getDataJson(TestUtils.returnPath("json1Test.json"));
         } catch (IOException e) {
             fail("IOException occurred while reading the file: " + e.getMessage());
         }
@@ -106,8 +98,7 @@ public final class AppTest {
     @Test
     public void testGetDataYaml() {
         try {
-            createdMaps = Parser.parse(pathyaml);
-            System.out.println(createdMaps);
+            createdMaps = Parser.parse(TestUtils.returnPath("json1Test.yaml"));
         } catch (IOException e) {
             fail("IOException occurred while reading the file: " + e.getMessage());
         }
@@ -126,7 +117,7 @@ public final class AppTest {
     @Test
     public void testGeneratorStylish() {
         try {
-            String test = Differ.generate(pathjson, path1json, "stylish");
+            String test = Differ.generate(TestUtils.returnPath("json1Test.json"), TestUtils.returnPath("json2Test.json"), "stylish");
             assertEquals(generetarorResult, test);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -136,7 +127,7 @@ public final class AppTest {
     @Test
     public void testGeneratorYaml() {
         try {
-            String test = Differ.generate(pathyaml, pathyaml1, "stylish");
+            String test = Differ.generate(TestUtils.returnPath("json1Test.yaml"), TestUtils.returnPath("json2Test.yaml"), "stylish");
             assertEquals(generetarorResult, test);
         } catch (Exception e) {
             throw new RuntimeException(e);
