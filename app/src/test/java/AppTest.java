@@ -150,9 +150,10 @@ public final class AppTest {
     public void testJsonFormatter() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         String expectedResultJson = TestUtils.readFixture("expectedResultJson.json");
-        List<Map<String, Object>> expectedResult = objectMapper.readValue(expectedResultJson, new TypeReference<>() { } );
+        List<Map<String, Object>> expectedResult
+                = objectMapper.readValue(expectedResultJson, new TypeReference<>() { } );
         String actualOutputJson = json(diffListWithKeys);
-        List<Map<String, Object>> actualOutput = objectMapper.readValue(actualOutputJson, new TypeReference<>() {});
+        List<Map<String, Object>> actualOutput = objectMapper.readValue(actualOutputJson, new TypeReference<>() { });
 
         assertEquals(expectedResult, actualOutput);
     }
