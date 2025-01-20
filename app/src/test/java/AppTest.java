@@ -117,7 +117,8 @@ public final class AppTest {
     @Test
     public void testGeneratorStylish() {
         try {
-            String test = Differ.generate(TestUtils.returnPath("json1Test.json"), TestUtils.returnPath("json2Test.json"), "stylish");
+            String test = Differ.generate(TestUtils.returnPath("json1Test.json"),
+                    TestUtils.returnPath("json2Test.json"), "stylish");
             assertEquals(generetarorResult, test);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -127,7 +128,8 @@ public final class AppTest {
     @Test
     public void testGeneratorYaml() {
         try {
-            String test = Differ.generate(TestUtils.returnPath("json1Test.yaml"), TestUtils.returnPath("json2Test.yaml"), "stylish");
+            String test = Differ.generate(TestUtils.returnPath("json1Test.yaml"),
+                    TestUtils.returnPath("json2Test.yaml"), "stylish");
             assertEquals(generetarorResult, test);
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -14,7 +14,7 @@ public class TestUtils {
     }
 
     public static String returnPath(String filename) throws IOException {
-        Path filePath = Path.of("src/test/resources", filename);;
+        Path filePath = Path.of("src/test/resources", filename);
         return filePath.toString();
     }
 }
