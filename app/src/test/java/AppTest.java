@@ -1,3 +1,5 @@
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.App;
 import hexlet.code.Differ;
 import hexlet.code.Parser;
@@ -143,10 +145,15 @@ public final class AppTest {
         assertEquals(expectedResult, actualOutput);
     }
 
+
     @Test
-    public void testJsonFormater() throws IOException {
-        String expectedResult = TestUtils.readFixture("expectedResultJson.json");
-        String actualOutput = json(diffListWithKeys);
+    public void testJsonFormatter() throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String expectedResultJson = TestUtils.readFixture("expectedResultJson.json");
+        List<Map<String, Object>> expectedResult = objectMapper.readValue(expectedResultJson, new TypeReference<>() { } );
+        String actualOutputJson = json(diffListWithKeys);
+        List<Map<String, Object>> actualOutput = objectMapper.readValue(actualOutputJson, new TypeReference<>() {});
+
         assertEquals(expectedResult, actualOutput);
     }
 
