@@ -1,18 +1,7 @@
 import hexlet.code.Differ;
 import hexlet.code.util.TestUtils;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-
-import static hexlet.code.formatters.Plain.plain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 public final class AppTest {
     private String generetarorResult;
